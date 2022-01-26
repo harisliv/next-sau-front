@@ -1,0 +1,58 @@
+@import "../../styles/abstracts/variables";
+
+.header {
+  grid-area: header;
+}
+
+.menu {
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.logo {
+  margin-top: 2.4rem;
+  align-items: baseline;
+  gap: 8px;
+  display: flex;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    text-transform: capitalize;
+  }
+
+  .news {
+    font-family: $secondary_font;
+    line-height: 21px;
+    background: $secondary_color;
+    border-radius: 4px;
+    color: #f8f8f8;
+    padding: 5.5px 8px;
+  }
+}
+
+.menu_list {
+  gap: 32px;
+  margin-top: 2.4rem;
+  display: flex;
+
+  a {
+    padding-bottom: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    text-transform: capitalize;
+  }
+
+  .active {
+    color: $secondary_color;
+    border-bottom: 3px solid $secondary_color;
+  }
+}
+
+.menu_right {
+  align-self: center;
+}

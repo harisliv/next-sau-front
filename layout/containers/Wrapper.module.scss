@@ -1,0 +1,16 @@
+@import "../../styles/abstracts/variables";
+
+.wrapper {
+    display: grid;
+    width: 100%;
+    max-width: 144rem;
+    grid-template-areas:
+      "header header"
+      "main sidebar"
+      "footer footer";
+    grid-template-columns: 1fr minmax(auto, 300px);
+    column-gap: 34px;
+    margin: 0 auto;
+    padding: 0 7.3rem 0 7.3rem;
+  }
+  

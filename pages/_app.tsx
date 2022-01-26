@@ -1,8 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/_app.scss";
+import type { AppProps } from "next/app";
+import Layout from "../layout/Layout";
+import CategoriesContextProvider from "../context/categoriesContext";
+import AuthContextProvider from "../context/authContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <AuthContextProvider>
+      <CategoriesContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </CategoriesContextProvider>
+    </AuthContextProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

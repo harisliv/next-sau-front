@@ -1,0 +1,51 @@
+.service_grid {
+  gap: 1.6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+  width: 100%;
+  margin-top: 2.8rem;
+}
+
+.time {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 0.8rem;
+}
+
+.service_grid__item {
+  box-shadow: 0px 6px 10px 0px #00000024;
+  border: 0.48px solid #0000001f;
+  padding: 1.6rem;
+  border-radius: 8px;
+
+  p {
+    margin-top: 0.8rem;
+  }
+
+  span {
+    display: block;
+    width: min-content;
+    background-color: #ececec;
+    margin-top: 0.8rem;
+    padding: 0.8rem;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0.004em;
+  }
+
+  a {
+    display: block;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: #de1515;
+    color: white;
+    margin-top: 1.6rem;
+  }
+}

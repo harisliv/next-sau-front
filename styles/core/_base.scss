@@ -1,0 +1,96 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+}
+
+html {
+  background-color: #f9f9f9;
+}
+
+time {
+  display: block;
+}
+
+.auto_margin {
+  margin: 0 auto;
+}
+
+.top_margin_small {
+  margin-top: 0.8rem;
+}
+
+.top_margin_medium {
+  margin-top: 1.8rem;
+}
+
+.top_margin_big {
+  margin-top: 3.2rem;
+}
+
+.bottom_padding_big {
+  padding-bottom: 3.2rem;
+}
+
+.padding_left {
+  padding-left: 7.3rem;
+}
+
+.padding_right {
+  padding-right: 7.3rem;
+}
+
+
+.main_section {
+  width: 100%;
+}
+
+.card__category {
+  position: absolute;
+  padding: 4px;
+  color: white;
+  border-radius: 4px;
+  background: linear-gradient(to right, #DE1515 50%, black 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+}
+
+.card__category:hover {
+  background-position: left bottom;
+}
+
+.banner_container__img {
+  align-self: center;
+}
+
+body {
+  padding-bottom: 6.8rem;
+}
+
+.placeholder {
+  display: block;
+}
+
+.img_fluid {
+  width: 100%;
+  height: auto;
+}
+
+#responseMessage {
+  background-color: greenyellow;
+  text-align: center;
+  border: 2px solid green;
+}
+
+.centered {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
