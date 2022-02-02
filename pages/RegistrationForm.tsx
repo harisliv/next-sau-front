@@ -1,14 +1,13 @@
 import { FC } from "react";
 import "./Form.scss";
-import email from "../../assets/icons/email.png";
-import password from "../../assets/icons/password.png";
-import Input from "../../layout/form/Input";
-import FormButton from "../../layout/buttons/FormButton";
-import LinkButton from "../../layout/buttons/LinkButton";
-import EmptySpace from "../../components/util/EmptySpace";
-import { useNavigate } from "react-router-dom";
+import email from "../assets/icons/email.png";
+import password from "../assets/icons/password.png";
+import FormButton from "../layout/buttons/FormButton";
+import LinkButton from "../layout/buttons/LinkButton";
+import EmptySpace from "../layout/util/EmptySpace";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Image from "next/image";
 
 type newUser = {
   email: string;
@@ -44,7 +43,6 @@ const validationSchema = yup.object({
 });
 
 const RegistrationForm: FC = () => {
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -69,7 +67,6 @@ const RegistrationForm: FC = () => {
     });
     if(response.ok) {
       console.log("Success");
-      navigate('../login', { replace: true })
     }
     const data = await response.json();
     console.log(data);
@@ -87,7 +84,7 @@ const RegistrationForm: FC = () => {
           Email
         </label>
         <div className="form__container form__container--withImg">
-          <img src={email} alt="icon" />
+          <Image src={email} alt="icon" />
           <input
             id="email"
             type="email"
@@ -102,7 +99,7 @@ const RegistrationForm: FC = () => {
           Password
         </label>
         <div className="form__container form__container--withImg">
-          <img src={password} alt="icon" />
+          <Image src={password} alt="icon" />
           <input
             id="password"
             type="password"

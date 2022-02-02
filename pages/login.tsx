@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import { FC, useContext } from "react";
 import classes from "./Form.module.scss";
 import email from "../assets/icons/email.png";
@@ -7,9 +8,9 @@ import LinkButton from "../layout/buttons/LinkButton";
 import EmptySpace from "../layout/util/EmptySpace";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { authContext } from "../context/authContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface userInfoInterface {
   email: string;
@@ -33,35 +34,26 @@ const validationSchema = yup.object({
 });
 
 const Login: FC = () => {
-  const context = useContext(authContext);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      loginHandler({
+      
+      signIn("credentials", {
+        redirect: false,
         email: values.email,
         password: values.password,
+      }).then((result) => {
+        console.log(result)
+        if (!result.error) {
+          router.replace("/");
+        }
       });
       resetForm();
     },
   });
-
-  const loginHandler = async (user: userInfoInterface) => {
-    const response = await fetch("https://localhost:5000/api/users/login", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    if (response.ok) {
-      const userInfo = await response.json();
-      context.onLogIn(userInfo.jwt);
-      console.log("Success");
-    }
-  };
 
   return (
     <section className={classes.section_form}>
