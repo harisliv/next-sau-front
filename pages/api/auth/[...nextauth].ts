@@ -3,23 +3,24 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyPassword } from "../../../lib/auth";
 import { connectToDatabase } from "../../../lib/db";
 
+
 export default NextAuth({
   session: {
     strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      // name: "Credentials",
-      // credentials: {
-      //   email: { label: "Email", type: "email" },
-      //   password: { label: "Password", type: "password" },
-      // },
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
         const client = await connectToDatabase();
 
         const usersCollenction = client.db().collection("users");
         const user = await usersCollenction.findOne({
-          email: credentials.email,
+          email: credentials?.email,
         });
 
         if (!user) {
@@ -27,7 +28,7 @@ export default NextAuth({
         }
 
         const isValid = await verifyPassword(
-          credentials.password,
+          credentials?.password,
           user.password
         );
         if (!isValid) {
@@ -41,4 +42,5 @@ export default NextAuth({
       },
     }),
   ],
+  secret: "2d0a310188aaabf4772fe134e6cba907"
 });

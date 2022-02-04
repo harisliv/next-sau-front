@@ -1,5 +1,5 @@
-import { getSession, signIn } from "next-auth/react";
-import { FC, useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
+import { FC, useContext } from "react";
 import classes from "./Form.module.scss";
 import email from "../assets/icons/email.png";
 import password from "../assets/icons/password.png";
@@ -11,7 +11,7 @@ import * as yup from "yup";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
+import { createUser } from "../lib/auth";
 
 interface signInResult {
   error: string | undefined;
@@ -23,11 +23,15 @@ interface signInResult {
 interface userInfoInterface {
   email: string;
   password: string;
+  name: string;
+  surname: string;
 }
 
 const initialValues: userInfoInterface = {
   email: "",
   password: "",
+  name: "",
+  surname: "",
 };
 
 const validationSchema = yup.object({
@@ -39,58 +43,73 @@ const validationSchema = yup.object({
     .string()
     .min(4, "Password should be of minimum 4 characters length")
     .required("Password is required"),
+  name: yup
+    .string()
+    .min(4, "name should be of minimum 4 characters length")
+    .required("name is required"),
+  surname: yup
+    .string()
+    .min(4, "surname should be of minimum 4 characters length")
+    .required("surname is required"),
 });
 
-const Login: FC = () => {
+const Register: FC = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [wrongPass, setWrongPass] = useState(false)
-  useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace('/')
-      } else {
-        setIsLoading(false)
-      }
-    })
-  }, [router])
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      signIn("credentials", {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-      }).then((result) => {
-          setWrongPass(false)
-          if (!result.error) {
-            router.replace("/");
-            resetForm();
-          }
-          else {
-            setWrongPass(true)
-          }
-      });
+      createUser(values.email, values.password, values.name, values.surname)
+      .then((result) =>{
+        resetForm();
+        console.log(result)
+        router.replace("/login");
+      }
+      );
     },
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <section className={classes.section_form}>
-      {wrongPass && <h1>Wrong Credentials</h1>}
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-        <h1 className="title">Welcome back</h1>
-        <p className={classes.description}>Log in using your account details</p>
+        <h1 className="title">Register</h1>
+        <p className={classes.description}>Create an account on Newsportal</p>
+        <EmptySpace pixels="1.8rem" />
+        <label className={classes.label} htmlFor="name">
+          Name
+        </label>
+        <div className={classes.inputContainer}>
+          <input
+            id="name"
+            type="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+          />
+        </div>
+        {formik.touched.name && Boolean(formik.errors.name)}
+        {formik.touched.name && formik.errors.name}
+        <EmptySpace pixels="1.8rem" />
+        <label className={classes.label} htmlFor="surname">
+          Surname
+        </label>
+        <div className={classes.inputContainer}>
+          <input
+            id="surname"
+            type="surname"
+            value={formik.values.surname}
+            onChange={formik.handleChange}
+          />
+        </div>
+        {formik.touched.surname && Boolean(formik.errors.surname)}
+        {formik.touched.surname && formik.errors.surname}
         <EmptySpace pixels="1.8rem" />
         <label className={classes.label} htmlFor="email">
           Email
         </label>
-        <div className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}>
+        <div
+          className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}
+        >
           <div className={classes.img_container}>
             <Image src={email} alt="icon" />
           </div>
@@ -107,7 +126,9 @@ const Login: FC = () => {
         <label className={classes.label} htmlFor="password">
           Password
         </label>
-        <div className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}>
+        <div
+          className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}
+        >
           <div className={classes.img_container}>
             <Image src={password} alt="icon" />
           </div>
@@ -120,17 +141,20 @@ const Login: FC = () => {
         </div>
         {formik.touched.password && Boolean(formik.errors.password)}
         {formik.touched.password && formik.errors.password}
-        <div>
-          <Link href="/">
-            <a className={classes.forgot_pass}>Forgot Pass</a>
-          </Link>
-        </div>
         <EmptySpace pixels="0.8rem" />
-        <FormButton modifier="button--red" buttonType="submit" title="Log In" />
-        <LinkButton url="/register" modifier="button--grey" text="Create account" />
+        <FormButton
+          modifier="button--red"
+          buttonType="submit"
+          title="Register"
+        />
+        <LinkButton
+          url="/login"
+          modifier="button--grey"
+          text="I have an account"
+        />
       </form>
     </section>
   );
 };
 
-export default Login;
+export default Register;

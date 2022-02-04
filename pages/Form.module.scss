@@ -17,7 +17,7 @@
   color: #de1515;
   font-weight: 500;
 }
-.containerWithImg {
+.inputContainer {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 8px;
@@ -30,9 +30,9 @@
 
   input {
     width: 100%;
-    border-radius: 0 8px 8px 0;
     padding-left: 11px;
     min-height: 49px;
+    border-radius: 8px;
   }
 
   input:focus {
@@ -40,3 +40,10 @@
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 }
+
+.inputContainerWithImg {
+  input {
+    border-radius: 0 8px 8px 0;
+  }
+}
+

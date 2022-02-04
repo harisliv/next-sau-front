@@ -38,7 +38,7 @@ const Topbar: FC = () => {
         )}
         <Link href="/" ><a>Language</a></Link>
         {session && (
-          <Link href="/" ><a>Admin</a></Link>
+          <Link href="/admin" ><a>Admin</a></Link>
         )}
         {!session && (
           <Link href="/register"><a>Register</a></Link>
