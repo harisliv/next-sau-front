@@ -24,11 +24,11 @@ const ArticleList: FC<CategoryProps> = (props) => {
   const findCategory = context.find((cat) => cat.name === props.categories);
   if (!findCategory) {
     categoryArr = context;
-    URL = "http://localhost/api/articles";
+    URL = "http://165.22.23.159/api/articles";
   }
   if (findCategory) {
     categoryArr.push(findCategory);
-    URL = `http://localhost/api/articles/categories/${categoryArr[0].id}`;
+    URL = `http://165.22.23.159/api/articles/categories/${categoryArr[0].id}`;
   }
 
   const fetchArticlesHandler = useCallback(async () => {
