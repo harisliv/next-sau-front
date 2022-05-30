@@ -7,7 +7,7 @@ const CategoriesContextProvider: FC = (props) => {
   const [categories, setCategories] = useState([]);
   const fetchCategoriesHandler = useCallback(async () => {
     try {
-      const response = await fetch("http://165.22.23.159/api/categories");
+      const response = await fetch("http://localhost/api/categories");
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }

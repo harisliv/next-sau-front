@@ -21,7 +21,7 @@ export default async function handler(
     res.status(401).json({ message: "not auth" });
     return;
   }
-  const userEmail = session.user.email;
+  const userEmail = session?.user?.email;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
