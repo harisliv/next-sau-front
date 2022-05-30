@@ -44,16 +44,16 @@ const validationSchema = yup.object({
 const Login: FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [wrongPass, setWrongPass] = useState(false)
+  const [wrongPass, setWrongPass] = useState(false);
   useEffect(() => {
     getSession().then((session) => {
       if (session) {
-        router.replace('/')
+        router.replace("/");
       } else {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    })
-  }, [router])
+    });
+  }, [router]);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -64,14 +64,15 @@ const Login: FC = () => {
         email: values.email,
         password: values.password,
       }).then((result) => {
-          setWrongPass(false)
-          if (!result.error) {
+        if (result) {
+          setWrongPass(false);
+          if (!result['error']) {
             router.replace("/");
             resetForm();
+          } else {
+            setWrongPass(true);
           }
-          else {
-            setWrongPass(true)
-          }
+        }
       });
     },
   });
@@ -90,7 +91,9 @@ const Login: FC = () => {
         <label className={classes.label} htmlFor="email">
           Email
         </label>
-        <div className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}>
+        <div
+          className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}
+        >
           <div className={classes.img_container}>
             <Image src={email} alt="icon" />
           </div>
@@ -107,7 +110,9 @@ const Login: FC = () => {
         <label className={classes.label} htmlFor="password">
           Password
         </label>
-        <div className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}>
+        <div
+          className={`${classes.inputContainer} ${classes.inputContainerWithImg}`}
+        >
           <div className={classes.img_container}>
             <Image src={password} alt="icon" />
           </div>
@@ -127,7 +132,11 @@ const Login: FC = () => {
         </div>
         <EmptySpace pixels="0.8rem" />
         <FormButton modifier="button--red" buttonType="submit" title="Log In" />
-        <LinkButton url="/register" modifier="button--grey" text="Create account" />
+        <LinkButton
+          url="/register"
+          modifier="button--grey"
+          text="Create account"
+        />
       </form>
     </section>
   );
